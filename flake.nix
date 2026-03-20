@@ -3,7 +3,7 @@
   outputs = {flakelight, ...}:
     flakelight ./. {
       devShell = {
-        packages = pkgs: [pkgs.python313 pkgs.uv pkgs.fastapi-cli pkgs.python313Packages.fastapi];
+        packages = pkgs: [pkgs.python313 pkgs.uv pkgs.fastapi-cli pkgs.python313Packages.fastapi pkgs.nodejs_24];
       };
     };
 }

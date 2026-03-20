@@ -1,5 +1,24 @@
 services:
+  ollama:
+    image: ollama/ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    entrypoint: >
+      /bin/sh -c "ollama serve &
+        sleep 5 &&
+        ollama pull ${AI_MODEL} &&
+        wait"
+
   app:
     build: .
     ports:
       - "8000:8000"
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_MODEL=${AI_MODEL}
+
+volumes:
+  ollama_data:
