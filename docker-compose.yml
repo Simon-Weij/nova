@@ -12,13 +12,22 @@ services:
         wait"
 
   app:
-    build: .
-    ports:
-      - "8000:8000"
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
     depends_on:
       - ollama
     environment:
       - OLLAMA_MODEL=${AI_MODEL}
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - app
 
 volumes:
   ollama_data:
