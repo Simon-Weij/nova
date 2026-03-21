@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO)
 logging.getLogger("uvicorn.error").propagate = False
 
 
-app = FastAPI()
+app = FastAPI(root_path="/api")
 app.include_router(settings_router)
 
 

@@ -17,9 +17,10 @@ class Settings(BaseModel):
 @router.post("/upload")
 def upload_settings(settings: Settings):
     homedir: str = os.environ["HOME"]
-    path: Path = Path(homedir + ".config/nova/settings.json")
+    path: Path = Path(homedir + "/.config/nova/settings.json")
 
     if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.touch()
 
     hashed_password: bytes = bcrypt.hashpw(settings.password.encode(), bcrypt.gensalt())
@@ -31,7 +32,7 @@ def upload_settings(settings: Settings):
 @router.get("/get")
 def get_settings():
     homedir: str = os.environ["HOME"]
-    path: Path = Path(homedir + ".config/nova/settings.json")
+    path: Path = Path(homedir + "/.config/nova/settings.json")
 
     if not path.exists():
         logging.info("Settings file was not found.")

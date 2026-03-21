@@ -1,15 +1,15 @@
 services:
-  ollama:
-    image: ollama/ollama
-    volumes:
-      - ollama_data:/root/.ollama
-    ports:
-      - "11434:11434"
-    entrypoint: >
-      /bin/sh -c "ollama serve &
-        sleep 5 &&
-        ollama pull ${AI_MODEL} &&
-        wait"
+  #ollama:
+  #  image: ollama/ollama
+  #  volumes:
+  #     - ollama_data:/root/.ollama
+  #  ports:
+  #    - "11434:11434"
+  #  entrypoint: >
+  #    /bin/sh -c "ollama serve &
+  #      sleep 5 &&
+  #      ollama pull ${AI_MODEL} &&
+  #      wait"
 
   app:
     build:
@@ -17,8 +17,8 @@ services:
       dockerfile: Dockerfile.backend
     env_file:
       - .env
-    depends_on:
-      - ollama
+    #depends_on:
+    #  - ollama
     ports:
       - "8000:8000"
 
