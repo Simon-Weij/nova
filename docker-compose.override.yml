@@ -13,3 +13,23 @@ services:
           path: pyproject.toml
         - action: rebuild
           path: uv.lock
+  
+
+  frontend:
+    develop:
+      watch:
+        - action: rebuild
+          path: ./frontend/src
+        - action: rebuild
+          path: ./frontend/static
+        - action: rebuild
+          path: ./frontend/package.json
+        - action: rebuild
+          path: ./frontend/svelte.config.js
+        - action: rebuild
+          path: ./frontend/vite.config.ts
+        - action: rebuild
+          path: ./frontend/tsconfig.json
+        - action: sync+restart
+          path: ./nginx.conf
+          target: /etc/nginx/conf.d/default.conf

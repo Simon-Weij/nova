@@ -28,8 +28,6 @@ services:
       dockerfile: Dockerfile.frontend
     ports:
       - "80:80"
-    depends_on:
-      - app
 
 volumes:
   ollama_data:

@@ -2,12 +2,12 @@ FROM python:3.13-slim AS builder
 RUN pip install uv==0.10.12
 
 WORKDIR /app
-COPY pyproject.toml uv.lock ./
-COPY . ./
+COPY pyproject.toml uv.lock README.md ./
+COPY src ./src
 
 RUN uv export --frozen --no-dev -o requirements.txt
 RUN pip install --no-cache-dir --target=/install -r requirements.txt
-RUN pip install --no-cache-dir --target=/install .
+RUN pip install --no-cache-dir --no-deps --target=/install .
 
 FROM gcr.io/distroless/python3-debian13
 
