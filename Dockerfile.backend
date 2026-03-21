@@ -12,11 +12,11 @@ RUN pip install --no-cache-dir --target=/install .
 FROM gcr.io/distroless/python3-debian13
 
 COPY --from=builder /install /install
-COPY --from=builder /app/main.py /app/main.py
+COPY --from=builder /app/src /app/src
 
-ENV PYTHONPATH=/install
+ENV PYTHONPATH=/install:/app
 
 WORKDIR /app
 USER nonroot
 
-CMD ["-m", "fastapi", "run", "main.py", "--port", "8000"]
+CMD ["-m", "fastapi", "run", "src/main.py", "--port", "8000"]
