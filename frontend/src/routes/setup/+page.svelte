@@ -1,6 +1,8 @@
 <script>
 	import { goto } from '$app/navigation';
 
+	import { password as passwordStore } from '$lib/store'
+
 	let password = $state('');
 	let confirm = $state('');
 	let error = $state('');
@@ -10,6 +12,8 @@
 			error = 'Passwords do not match';
 			return;
 		}
+
+		passwordStore.set(password)
 
 		const res = await fetch('/api/settings/upload', {
 			method: 'POST',

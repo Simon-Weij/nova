@@ -6,8 +6,8 @@ import bcrypt
 from router.auth import require_api_key, verified_key_cache
 from router.settings_store import ensure_settings_file, load_settings_or_404
 
+router: APIRouter = APIRouter(prefix="/settings", tags=["settings"])
 
-router = APIRouter(prefix="/settings", tags=["settings"])
 
 
 class Settings(BaseModel):

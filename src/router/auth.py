@@ -1,11 +1,12 @@
 import bcrypt
-from fastapi import Header, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException, Response, status
 
 from router.settings_store import load_settings_or_404
 
 import hashlib
 
 verified_key_cache: set[str] = set()
+router: APIRouter = APIRouter(prefix="/auth", tags=["auth"])
 
 
 def require_api_key(x_api_key: str | None = Header(default=None)) -> None:
@@ -28,3 +29,8 @@ def require_api_key(x_api_key: str | None = Header(default=None)) -> None:
         raise HTTPException(status_code=401, detail="Invalid password")
 
     verified_key_cache.add(cache_key)
+
+
+@router.get("/check", dependencies=[Depends(require_api_key)])
+def check_auth() -> Response:
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
