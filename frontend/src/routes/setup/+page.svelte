@@ -15,7 +15,7 @@
 
 		passwordStore.set(password)
 
-		const res = await fetch('/api/settings/upload', {
+		const res = await fetch('/api/settings/upload-password', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ password })

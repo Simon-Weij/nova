@@ -1,7 +1,7 @@
 import bcrypt
 from fastapi import APIRouter, Depends, Header, HTTPException, Response, status
 
-from router.settings_store import load_settings_or_404
+from router.settings_store import load_password_hash_or_404
 
 import hashlib
 
@@ -17,12 +17,7 @@ def require_api_key(x_api_key: str | None = Header(default=None)) -> None:
     if cache_key in verified_key_cache:
         return
 
-    data = load_settings_or_404()
-    hashed_password = data.get("password")
-    if not hashed_password:
-        raise HTTPException(
-            status_code=500, detail="Configured password hash is missing"
-        )
+    hashed_password = load_password_hash_or_404()
 
     is_valid = bcrypt.checkpw(x_api_key.encode(), hashed_password.encode())
     if not is_valid:

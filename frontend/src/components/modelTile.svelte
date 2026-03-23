@@ -37,7 +37,7 @@
 		newModel = selectedModel.trim();
 	});
 
-	async function apiRequest(
+	export async function apiRequest(
 		url: string,
 		options: RequestInit = {},
 		errorMessage = 'Request failed',
