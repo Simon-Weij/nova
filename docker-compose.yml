@@ -10,6 +10,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
+    privileged: true
+    devices:
+      - "/dev/snd:/dev/snd"
     depends_on:
       - ollama
     ports:

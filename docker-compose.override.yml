@@ -1,6 +1,6 @@
 services:
   app:
-    command: ["-m", "fastapi", "run", "src/main.py", "--port", "8000", "--reload"]
+    command: ["python3", "-m", "fastapi", "run", "src/main.py", "--port", "8000", "--reload"]
     develop:
       watch:
         - action: sync

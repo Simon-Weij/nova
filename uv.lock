@@ -438,6 +438,13 @@ dependencies = [
     { name = "bcrypt" },
     { name = "fastapi", extra = ["standard"] },
     { name = "ollama" },
+    { name = "pyaudio" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pyaudio" },
+    { name = "types-pyaudio" },
 ]
 
 [package.metadata]
@@ -445,6 +452,13 @@ requires-dist = [
     { name = "bcrypt", specifier = ">=5.0.0" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.135.1" },
     { name = "ollama", specifier = ">=0.6.1" },
+    { name = "pyaudio", specifier = ">=0.2.14" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pyaudio", specifier = ">=0.2.14" },
+    { name = "types-pyaudio", specifier = ">=0.2.16.20250801" },
 ]
 
 [[package]]
@@ -458,6 +472,16 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/9d/5a/652dac4b7affc2b37b95386f8ae78f22808af09d720689e3d7a86b6ed98e/ollama-0.6.1.tar.gz", hash = "sha256:478c67546836430034b415ed64fa890fd3d1ff91781a9d548b3325274e69d7c6", size = 51620, upload-time = "2025-11-13T23:02:17.416Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/47/4f/4a617ee93d8208d2bcf26b2d8b9402ceaed03e3853c754940e2290fed063/ollama-0.6.1-py3-none-any.whl", hash = "sha256:fc4c984b345735c5486faeee67d8a265214a31cbb828167782dc642ce0a2bf8c", size = 14354, upload-time = "2025-11-13T23:02:16.292Z" },
+]
+
+[[package]]
+name = "pyaudio"
+version = "0.2.14"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/26/1d/8878c7752febb0f6716a7e1a52cb92ac98871c5aa522cba181878091607c/PyAudio-0.2.14.tar.gz", hash = "sha256:78dfff3879b4994d1f4fc6485646a57755c6ee3c19647a491f790a0895bd2f87", size = 47066, upload-time = "2023-11-07T07:11:48.806Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3a/77/66cd37111a87c1589b63524f3d3c848011d21ca97828422c7fde7665ff0d/PyAudio-0.2.14-cp313-cp313-win32.whl", hash = "sha256:95328285b4dab57ea8c52a4a996cb52be6d629353315be5bfda403d15932a497", size = 150982, upload-time = "2024-11-20T19:12:12.404Z" },
+    { url = "https://files.pythonhosted.org/packages/a5/8b/7f9a061c1cc2b230f9ac02a6003fcd14c85ce1828013aecbaf45aa988d20/PyAudio-0.2.14-cp313-cp313-win_amd64.whl", hash = "sha256:692d8c1446f52ed2662120bcd9ddcb5aa2b71f38bda31e58b19fb4672fffba69", size = 173655, upload-time = "2024-11-20T19:12:13.616Z" },
 ]
 
 [[package]]
@@ -750,6 +774,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/f5/24/cb09efec5cc954f7f9b930bf8279447d24618bb6758d4f6adf2574c41780/typer-0.24.1.tar.gz", hash = "sha256:e39b4732d65fbdcde189ae76cf7cd48aeae72919dea1fdfc16593be016256b45", size = 118613, upload-time = "2026-02-21T16:54:40.609Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/4a/91/48db081e7a63bb37284f9fbcefda7c44c277b18b0e13fbc36ea2335b71e6/typer-0.24.1-py3-none-any.whl", hash = "sha256:112c1f0ce578bfb4cab9ffdabc68f031416ebcc216536611ba21f04e9aa84c9e", size = 56085, upload-time = "2026-02-21T16:54:41.616Z" },
+]
+
+[[package]]
+name = "types-pyaudio"
+version = "0.2.16.20250801"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/35/cf/d3e3457dcbc6292aa8f472c15d805dcb5c07c57a5037168d52197aecac1c/types_pyaudio-0.2.16.20250801.tar.gz", hash = "sha256:c6ff1b9681f67c1f14d8d86804b99fe5b1fa79f88c5a1ec0367fccfc183e095d", size = 9729, upload-time = "2025-08-01T03:48:36.441Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e0/dc/34727c5464ac7c72db569b0c9787303d13374667dc74568f46b4086a3943/types_pyaudio-0.2.16.20250801-py3-none-any.whl", hash = "sha256:1b6d293e0d511108b1d13575868e87fba6ea9056900aee4f8440e0fdc89f9f75", size = 8808, upload-time = "2025-08-01T03:48:35.331Z" },
 ]
 
 [[package]]
