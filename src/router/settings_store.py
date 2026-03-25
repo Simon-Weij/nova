@@ -2,8 +2,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-from fastapi import HTTPException
-
 
 def settings_path() -> Path:
     return Path.home() / ".config" / "nova" / "settings.json"
@@ -22,9 +20,7 @@ def ensure_settings_file() -> Path:
 
 
 def load_settings_or_404() -> dict[str, Any]:
-    path = settings_path()
-    if not path.exists():
-        raise HTTPException(status_code=404, detail="Settings not yet initialised")
+    path = ensure_settings_file()
 
     with path.open("r") as file:
         return json.load(file)

@@ -11,6 +11,8 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     privileged: true
+    volumes:
+      - ./data:/root/.config/nova
     env_file:
       - .env
     devices:

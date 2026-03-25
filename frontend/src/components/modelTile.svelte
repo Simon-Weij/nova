@@ -69,6 +69,12 @@
 	}
 
 	async function checkAuth() {
+		const apiKey = get(password).trim();
+		if (!apiKey) {
+			await goto('/setup');
+			return false;
+		}
+
 		const res = await apiRequest('/api/auth/check', {}, 'Auth check failed', [401]);
 		if (!res) {
 			return false;

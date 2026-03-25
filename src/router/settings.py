@@ -11,7 +11,6 @@ from router.settings_store import (
 router: APIRouter = APIRouter(prefix="/settings", tags=["settings"])
 
 
-
 class WakeWord(BaseModel):
     id: str
     value: str
