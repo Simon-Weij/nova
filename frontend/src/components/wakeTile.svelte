@@ -1,8 +1,39 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { password } from '$lib/store';
 	import { get } from 'svelte/store';
 
-	let wakeWords = $state([{ id: crypto.randomUUID(), value: '' }]);
+	type WakeWord = {
+		id: string;
+		value: string;
+	};
+
+	let wakeWords = $state<WakeWord[]>([{ id: crypto.randomUUID(), value: '' }]);
+	let saved = $state(false);
+	let savedTimer: ReturnType<typeof setTimeout> | undefined;
+
+	onMount(async () => {
+		const apiKey = get(password);
+		if (!apiKey) {
+			return;
+		}
+
+		const res = await fetch('/api/settings/get', {
+			headers: {
+				'x-api-key': apiKey,
+				accept: 'application/json'
+			}
+		});
+
+		if (!res.ok) {
+			return;
+		}
+
+		const data = await res.json();
+		if (Array.isArray(data.wakeWords) && data.wakeWords.length) {
+			wakeWords = data.wakeWords;
+		}
+	});
 
 	function addWakeWord() {
 		wakeWords = [...wakeWords, { id: crypto.randomUUID(), value: '' }];
@@ -13,16 +44,29 @@
 	}
 
 	async function saveWakeWord() {
-		const requestHeaders: Record<string, string> = {
-			'x-api-key': get(password)
-		};
-		await fetch('/api/settings/upload', {
+		saved = false;
+
+		const response = await fetch('/api/settings/upload', {
 			method: 'POST',
-			headers: requestHeaders,
-			body: JSON.stringify({
-				wakeWords
-			})
+			headers: {
+				'x-api-key': get(password),
+				'content-type': 'application/json',
+				accept: 'application/json'
+			},
+			body: JSON.stringify({ wakeWords })
 		});
+
+		saved = response.ok;
+
+		if (saved) {
+			if (savedTimer) {
+				clearTimeout(savedTimer);
+			}
+
+			savedTimer = setTimeout(() => {
+				saved = false;
+			}, 5000);
+		}
 	}
 </script>
 
@@ -60,4 +104,8 @@
 	>
 		Save
 	</button>
+
+	{#if saved}
+		<p class="mt-2 text-sm text-green-700">Saved</p>
+	{/if}
 </div>

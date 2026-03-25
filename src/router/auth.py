@@ -1,29 +1,31 @@
-import bcrypt
+import os
+import secrets
 from fastapi import APIRouter, Depends, Header, HTTPException, Response, status
 
-from router.settings_store import load_password_hash_or_404
 
-import hashlib
-
-verified_key_cache: set[str] = set()
+PASSWORD_ENV_VAR = "NOVA_PASSWORD"
 router: APIRouter = APIRouter(prefix="/auth", tags=["auth"])
+
+
+def get_configured_password_or_500() -> str:
+    configured_password = os.getenv(PASSWORD_ENV_VAR, "").strip()
+    if not configured_password:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Missing required environment variable: {PASSWORD_ENV_VAR}",
+        )
+
+    return configured_password
 
 
 def require_api_key(x_api_key: str | None = Header(default=None)) -> None:
     if not x_api_key:
         raise HTTPException(status_code=401, detail="Missing password")
 
-    cache_key = hashlib.sha256(x_api_key.encode()).hexdigest()
-    if cache_key in verified_key_cache:
-        return
-
-    hashed_password = load_password_hash_or_404()
-
-    is_valid = bcrypt.checkpw(x_api_key.encode(), hashed_password.encode())
+    configured_password = get_configured_password_or_500()
+    is_valid = secrets.compare_digest(x_api_key, configured_password)
     if not is_valid:
         raise HTTPException(status_code=401, detail="Invalid password")
-
-    verified_key_cache.add(cache_key)
 
 
 @router.get("/check", dependencies=[Depends(require_api_key)])
